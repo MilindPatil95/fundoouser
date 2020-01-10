@@ -1,4 +1,4 @@
-package com.bridgelab;
+package com.bridgelab.dto;
 
 public class UserDto {
 

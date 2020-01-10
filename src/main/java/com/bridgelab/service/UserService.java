@@ -1,4 +1,4 @@
-package com.bridgelab;
+package com.bridgelab.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,32 +7,42 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgelab.dto.LoginDto;
+import com.bridgelab.dto.UserDto;
+import com.bridgelab.model.User;
+import com.bridgelab.repository.UserRepository;
+
 @Service
-class FundooService {
+public class UserService {
 	ModelMapper mappper = new ModelMapper();
 	@Autowired
-	private FundooRepository fundooRepository;
-
-	public List<User> getUsers() {
+	private UserRepository userRepository;
+	// @method: return users list
+	public List<User> getUsers() {                          
 		List<User> list = new ArrayList<User>();
-		fundooRepository.findAll().forEach(list::add);
+		userRepository.findAll().forEach(list::add);
 		return list;
 	}
-
+	// @method: add data in repository
 	public void addUser(UserDto userDto) {
-		User user = mappper.map(userDto, User.class);
-		fundooRepository.save(user);
+		User user = mappper.map(userDto, User.class);   //convert dto to User type object
+		userRepository.save(user);
 	}
-
+	// @method: remove user form repository
 	public void removeUser(int id) {
-		fundooRepository.deleteById(id);
+		userRepository.deleteById(id);
 	}
-
+	// @method: search user by id in repository
 	public void searchUser(int id) {
-		fundooRepository.findById(id);
+		userRepository.findById(id);
 	}
-
-	public String loginVerification(LoginDto logindto) // userdto is data transfer object
+	// @method: verify log user
+	/**
+	 * @purpose : login verification 
+	 * @param logindto : store credential data
+	 * @return : string
+	 */
+	public String loginVerification(LoginDto logindto) 
 	{
 		int flag=0, flag1=0;
 		List<User> list = getUsers();

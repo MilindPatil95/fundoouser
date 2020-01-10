@@ -1,4 +1,4 @@
-package com.bridgelab;
+package com.bridgelab.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
